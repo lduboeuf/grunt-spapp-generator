@@ -1,8 +1,8 @@
 # grunt-spapp-generator
 
-spapp-generator is intended to ease app developpement with micro MVC library [spapp](https://github.com/c-smile/spapp).
+spapp-generator is a grunt plugin intended to ease app developpement with [spapp](https://github.com/c-smile/spapp) micro MVC library .
 
-It allows you to create a template by creating required html and js files and corresponding declarations in index.html and css files.
+It allows you to create boilerplate code by creating required html and js files and add corresponding declarations in index.html and css files.
 
 For production, it allows you also to put inline every templates into declared sections.
 
@@ -41,9 +41,11 @@ grunt.initConfig({
 });
 ```
 
-In your `index.html`, place the block comment `<!-- @spapp_generator scripts -->` where you want your scripts file to be declared.
-place the block comment `<!-- @spapp_generator sections -->` where you want spapp_generator to declare sections
-place the block comment `/*@spapp_generator css*/` where you want spapp_generator to declare section in css file
+In your `index.html`, place the comment block`<!-- @spapp_generator scripts -->` where you want your scripts file to be declared.
+
+place the comment block  `<!-- @spapp_generator sections -->` where you want spapp_generator to declare sections.
+
+place the comment block `/*@spapp_generator css*/` where you want spapp_generator to declare section in css file.
 
 ### Usage Examples
 
@@ -69,8 +71,9 @@ grunt.initConfig({
 ```shell
 grunt spapp_generator:new --name=playlist
 ```
-will generate 2 files: `templates/playlist.html` and `scripts/playlist.js`
- add this declarations in `src/index.html`:
+will generate 2 files: `templates/playlist.html` and `scripts/playlist.js`.
+
+will add this declarations in `src/index.html`:
 ```html
   <script src="scripts/playlist.js"></script>
   <!-- @import scripts -->
