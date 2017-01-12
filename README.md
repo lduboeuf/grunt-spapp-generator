@@ -32,8 +32,9 @@ grunt.initConfig({
       src: 'your source html file',
       dest:'your dest html file',
       options: {
-        template_folder: 'templates folder',
-        script_folder: 'scripts folder',
+        basePath: 'base folder',
+        templateFolder: 'templates folder relative to basePath',
+        scriptFolder: 'scripts folder relative to basePath',
         css: 'css file'
       }
     }
@@ -54,8 +55,9 @@ grunt.initConfig({
       src: 'src/index.html',
       dest:'dist/index.html',
       options: {
-        template_folder: 'src/templates',
-        script_folder: 'src/scripts',
+        basePath: 'src',
+        templateFolder: 'templates',
+        scriptFolder: 'scripts',
         css:'style/main.css'
       }
     }
