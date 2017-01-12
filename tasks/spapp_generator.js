@@ -20,7 +20,7 @@ module.exports = function(grunt) {
       return;
     }
 
-    if (arg1=='inline_template'){
+    if (arg1=='inline'){
       return importTemplates(conf.src, conf.dest, template_folder);
     }else if (arg1=='new'){
       return newTemplate(conf.src, template_folder, script_folder);
