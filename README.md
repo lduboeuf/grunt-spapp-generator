@@ -1,8 +1,8 @@
 # grunt-spapp-generator
 
-spapp-generator is intended to ease app developpement with micro MVC framework [spapp](https://github.com/c-smile/spapp).
+spapp-generator is intended to ease app developpement with micro MVC library [spapp](https://github.com/c-smile/spapp).
 
-It allows you to create a template by creating required html and js files and corresponding declarations in index.html (  you still have to register your section to css).
+It allows you to create a template by creating required html and js files and corresponding declarations in index.html and css files.
 
 For production, it allows you also to put inline every templates into declared sections.
 
@@ -32,15 +32,17 @@ grunt.initConfig({
       src: 'your source html file',
       dest:'your dest html file',
       options: {
-        template_folder: 'templates',
-        script_folder: 'scripts'
+        template_folder: 'templates folder',
+        script_folder: 'scripts folder',
+        css: 'css file'
       }
     }
 });
 ```
 
-In your `index.html`, place the block comment `<!-- @import scripts -->` where you want your scripts file to be declared.
-place the block comment `<!-- @import sections -->` where you want spapp_generator to declare sections
+In your `index.html`, place the block comment `<!-- @spapp_generator scripts -->` where you want your scripts file to be declared.
+place the block comment `<!-- @spapp_generator sections -->` where you want spapp_generator to declare sections
+place the block comment `/*@spapp_generator css*/` where you want spapp_generator to declare section in css file
 
 ### Usage Examples
 
@@ -52,8 +54,9 @@ grunt.initConfig({
       src: 'src/index.html',
       dest:'dist/index.html',
       options: {
-        template_folder: 'templates',
-        script_folder: 'scripts'
+        template_folder: 'src/templates',
+        script_folder: 'src/scripts',
+        css:'style/main.css'
       }
     }
 });
@@ -65,7 +68,7 @@ grunt.initConfig({
 grunt spapp_generator:new --name=playlist
 ```
 will generate 2 files: `templates/playlist.html` and `scripts/playlist.js`
-and add this declarations in `src/index.html`:
+ add this declarations in `src/index.html`:
 ```html
   <script src="scripts/playlist.js"></script>
   <!-- @import scripts -->
@@ -74,10 +77,28 @@ and add this declarations in `src/index.html`:
   <section id="playlist" src="templates/playlist.html"></section>
   <!-- @import sections -->
 ```
+and add section declaration in css `style/main.css`
+```css
+  body.playlist   > section#playlist
+```
 
 ####include all templates inline
 
 ```shell
 grunt spapp_generator:inline
 ```
-will import all declared templates in `index.html` and write it to `dist/index.html`
+will import add declared templates in `index.html`
+from:
+```html
+  <section id="playlist" src="templates/playlist.html"></section>
+```
+to:
+```html
+  <section id="playlist">
+    <div>
+    <!--my template here-->
+    </div>
+  </section>
+```
+
+ and write it to `dist/index.html`
