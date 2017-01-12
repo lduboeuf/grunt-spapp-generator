@@ -1,7 +1,9 @@
 # grunt-spapp-generator
 
-spapp-generator is intended to ease app developpement with micro MVC framework [spapp](https://github.com/c-smile/spapp)
-It allows you to create a template by creating required html and js files and corresponding declarations in index.html
+spapp-generator is intended to ease app developpement with micro MVC framework [spapp](https://github.com/c-smile/spapp).
+
+It allows you to create a template by creating required html and js files and corresponding declarations in index.html (  you still have to register your section to css).
+
 For production, it allows you also to put inline every templates into declared sections.
 
 ## Getting Started
@@ -10,7 +12,7 @@ This plugin requires Grunt `~0.4.5`
 If you haven't used [Grunt](http://gruntjs.com/) before, be sure to check out the [Getting Started](http://gruntjs.com/getting-started) guide, as it explains how to create a [Gruntfile](http://gruntjs.com/sample-gruntfile) as well as install and use Grunt plugins. Once you're familiar with that process, you may install this plugin with this command:
 
 ```shell
-npm install grunt-spapp-generator --save-dev
+npm install https://github.com/lduboeuf/grunt-spapp-generator --save-dev
 ```
 
 Once the plugin has been installed, it may be enabled inside your Gruntfile with this line of JavaScript:
