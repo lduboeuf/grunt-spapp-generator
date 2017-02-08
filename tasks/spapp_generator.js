@@ -39,14 +39,23 @@ module.exports = function(grunt) {
   }
 
   var newTemplate = function(conf){
-    var name = grunt.option('name');
-    if (!name){
-      grunt.log.error('please provide a controller/template name: spapp_generator:new --name=ctrl_name' )
+    var namePath = grunt.option('name');
+
+    if (!namePath){
+      grunt.log.error('please provide a name: spapp_generator:new --name=folder/ctrl_name' )
+      return;
+    }
+
+    var dir = path.dirname(namePath);
+    var name = path.basename(namePath);
+
+    if (dir.length<2){
+      grunt.log.error('please provide a folder name: spapp_generator:new --name=folder/ctrl_name' )
       return;
     }
 
     //generate template
-    var tplFilePath = path.join(conf.options.basePath, conf.options.templateFolder, name + '.html');
+    var tplFilePath = path.join(conf.options.basePath, namePath + '.html');
     if (grunt.file.isFile(tplFilePath)){
       grunt.log.error('already found a file here:' + tplFilePath);
       return;
@@ -58,14 +67,24 @@ module.exports = function(grunt) {
 
 
     //generate js
-    var jsFilePath = path.join(conf.options.basePath, conf.options.scriptFolder, name + '.js');
+    var jsFilePath = path.join(conf.options.basePath, namePath + '.js');
     if (grunt.file.isFile(jsFilePath)){
       grunt.log.error('already found a file here:' + jsFilePath);
       return;
     }
 
-    //var contentInit = grunt.file.read('script.tpl');
-    //var newContent = contentInit.replace('tpl_name',name);
+    //generate css
+    var cssFilePath = path.join(conf.options.basePath, namePath + '.css');
+    if (grunt.file.isFile(cssFilePath)){
+      grunt.log.error('already found a file here:' + cssFilePath);
+      return;
+    }
+
+    var content = 'body.'+ name + ' > section#'+ name +' { display:block; }';
+    grunt.file.write(cssFilePath, content);
+    grunt.log.ok('created a css file :' + cssFilePath);
+
+
     var newContent = ['app.page("'+ name +'", function() { ',
       ' //your code here called once',
       ' return function(params) {',
@@ -76,22 +95,20 @@ module.exports = function(grunt) {
     grunt.file.write(jsFilePath, newContent);
     grunt.log.ok('created a script file :' + jsFilePath);
 
+
     //modify html file
 
     var content = grunt.file.read(conf.src);
-    var newContent = content.replace('<!-- @spapp_generator scripts -->', '<script src="scripts/'+ name + '.js"></script>\r\n<!-- @spapp_generator scripts -->\r\n');
-    newContent = newContent.replace('<!-- @spapp_generator sections -->','<section id="'+ name +'" src="templates/'+ name +'.html"></section>\r\n<!-- @spapp_generator sections -->');
+    var newContent = content.replace('<!-- @spapp_generator scripts -->', '<script src="'+ namePath + '.js"></script>\r\n<!-- @spapp_generator scripts -->\r\n');
+    newContent = newContent.replace('<!-- @spapp_generator sections -->','<section id="'+ name + '" src="'+ namePath + '.html"></section>\r\n<!-- @spapp_generator sections -->');
+    newContent = newContent.replace('<!-- @spapp_generator css -->','<link rel="stylesheet" href="'+ namePath + '.css">\r\n<!-- @spapp_generator css -->');
+
     if (content !== newContent) {
       grunt.file.write(conf.src, newContent);
       grunt.log.ok('add script and section to file :' + conf.src);
     }
 
-    //declare section in css file
-    var cssFilePath = path.join(conf.options.basePath, conf.options.css);
-    var content = grunt.file.read(cssFilePath);
-    var newContent = content.replace('/*@spapp_generator css*/','body.'+ name +'   > section#'+ name +',\r\n/*@spapp_generator css*/');
-    grunt.file.write(cssFilePath, newContent);
-    grunt.log.ok('add section css declaration to file :' + cssFilePath);
+
   }
 
 

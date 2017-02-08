@@ -2,7 +2,7 @@
 
 spapp-generator is a grunt plugin intended to ease app developpement with [spapp](https://github.com/c-smile/spapp) micro MVC library .
 
-It allows you to create boilerplate code by creating required html and js files and add corresponding declarations in index.html and css files.
+It allows you to create boilerplate code by creating required html, js, css files and add corresponding declarations in index.html and css files.
 
 For production, it allows you also to put inline every templates into declared sections.
 
@@ -32,10 +32,7 @@ grunt.initConfig({
       src: 'your source html file',
       dest:'your dest html file',
       options: {
-        basePath: 'base folder',
-        templateFolder: 'templates folder relative to basePath',
-        scriptFolder: 'scripts folder relative to basePath',
-        css: 'css file'
+        basePath: 'base folder'
       }
     }
 });
@@ -45,7 +42,7 @@ In your `index.html`, place the comment block`<!-- @spapp_generator scripts -->`
 
 place the comment block  `<!-- @spapp_generator sections -->` where you want spapp_generator to declare sections.
 
-place the comment block `/*@spapp_generator css*/` where you want spapp_generator to declare section in css file.
+place the comment block `<!-- @spapp_generator css -->` where you want spapp_generator to declare your css files.
 
 ### Usage Examples
 
@@ -57,10 +54,7 @@ grunt.initConfig({
       src: 'src/index.html',
       dest:'dist/index.html',
       options: {
-        basePath: 'src',
-        templateFolder: 'templates',
-        scriptFolder: 'scripts',
-        css:'style/main.css'
+        basePath: 'src'
       }
     }
 });
@@ -69,23 +63,24 @@ grunt.initConfig({
 ####Create controller/template skeleton
 
 ```shell
-grunt spapp_generator:new --name=playlist
+grunt spapp_generator:new --name=playlist/playlist-details
 ```
-will generate 2 files: `templates/playlist.html` and `scripts/playlist.js`.
+will generate 3 files: `playlist/playlist-details.html`, `playlist/playlist-details.js`, `playlist/playlist-details.css`
 
 will add this declarations in `src/index.html`:
 ```html
-  <script src="scripts/playlist.js"></script>
-  <!-- @import scripts -->
+  <script src="playlist/playlist-details.js"></script>
+  <!-- @spapp_generator scripts -->
 ```
 ```html
-  <section id="playlist" src="templates/playlist.html"></section>
-  <!-- @import sections -->
+  <link rel="stylesheet" href="playlist/playlist-details.css">
+  <!-- @spapp_generator css -->
 ```
-and add section declaration in css `style/main.css`
-```css
-  body.playlist   > section#playlist
+```html
+  <section id="playlist-details" src="playlist/playlist-details.html"></section>
+  <!-- @spapp_generator sections -->
 ```
+
 
 ####include all templates inline
 
@@ -95,11 +90,11 @@ grunt spapp_generator:inline
 will import add declared templates in `index.html`
 from:
 ```html
-  <section id="playlist" src="templates/playlist.html"></section>
+  <section id="playlist-details" src="playlist/playlist-details.html"></section>
 ```
 to:
 ```html
-  <section id="playlist">
+  <section id="playlist-details">
     <div>
     <!--my template here-->
     </div>
@@ -107,3 +102,7 @@ to:
 ```
 
  and write it to `dist/index.html`
+
+ ##example of use
+
+ [skeleton web app](https://github.com/lduboeuf/skeleton-web-app.git)
