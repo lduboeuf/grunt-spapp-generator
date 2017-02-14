@@ -85,7 +85,7 @@ module.exports = function(grunt) {
     grunt.log.ok('created a css file :' + cssFilePath);
 
 
-    var newContent = ['app.page("'+ name +'", function() { ',
+    var newContent = ['app.page("'+ name +'", "title", function() { ',
       ' //your code here called once',
       ' return function(params) {',
       '   //your code called each time view is called',
