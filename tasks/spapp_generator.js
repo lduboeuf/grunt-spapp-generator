@@ -29,9 +29,9 @@ module.exports = function(grunt) {
   var importTemplates = function(src, dest, appPath){
     var content = grunt.file.read(src);
 
-    var newContent = content.replace(/<section id="(.*?)" src="(.*?)">/ig, function(match, p1, p2){
+    var newContent = content.replace(/<section id="(.*?)" src="(.*?)"(.*?)>/ig, function(match, p1, p2, p3){
       var tplFile = path.join(appPath,p2 );
-      return '<section id="' + p1 + '">\r\n' + grunt.file.read(tplFile) + '\r\n';
+      return '<section id="' + p1 + '" '+ p3 +'>\r\n' + grunt.file.read(tplFile) + '\r\n';
     });
     grunt.file.write(dest, newContent);
     grunt.log.ok('import templates to :' + dest);
