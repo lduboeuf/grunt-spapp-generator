@@ -1,7 +1,7 @@
 {
   "name": "grunt-spapp-generator",
-  "description": "The best Grunt plugin ever.",
-  "version": "0.1.0",
+  "description": "spapp generator.",
+  "version": "0.2.0",
   "homepage": "https://github.com/lduboeuf/grunt-spapp-generator",
   "author": {
     "name": "lduboeuf",
