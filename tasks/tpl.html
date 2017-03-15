@@ -1,0 +1,33 @@
+<div>
+    <style>
+      /*allow this template to be visible when selected*/
+      body.tpl_id  > section#tpl_id { display:block; }
+      /* here template specific css declarations*/
+      #tpl_id {
+        /**/
+      }
+    </style>
+
+    <p>hello!</p>
+
+    <script type="text/javascript">
+
+        app.page("tpl_id",function()
+        {
+
+          // initialize view variables in localscope
+          // this is "page ready" code - happens once per app life time.
+          $section = document.getElementById('tpl_id');
+
+          // presenter of the view - load data and show:
+          // this function is "page activated" code - it gets called each time the page gets presented
+          return function(params) {
+            console.log('hello here, i am called each time a link or a code points to #tpl_id ');
+
+            $section.innerHTML = $section.innerHTML + ' world';
+          }
+        });
+
+    </script>
+
+</div>
